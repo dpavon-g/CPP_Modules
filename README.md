@@ -1,7 +1,6 @@
 # CPP MODULES
 
-## Series 9 of exercises to learn c++ and object-oriented programming language.
-Following the common core of 42, these exercises are divided into two blocks of different modules, from 00 to 04 and from 05 to 09.
+## Series of 9 exercises to learn c++ and object-oriented programming language.
 
 <p align="center">
     <img src="https://raw.githubusercontent.com/isocpp/logos/master/cpp_logo.png" width="200" height="auto">
@@ -9,7 +8,8 @@ Following the common core of 42, these exercises are divided into two blocks of 
 
 -----------------
 
-#### Following the common core of 42, these exercises are divided into two blocks :package: of different modules, from 00 to 04 and from 05 to 09.
+
+Following the common core of 42, these exercises are divided into two blocks of different modules, from 00 to 04 and from 05 to 09.
 
 | Module | Block | Topics | Documentation | PDF | Completed |
 |:------:|:----:| ---- |:---------:|------|:-:|
