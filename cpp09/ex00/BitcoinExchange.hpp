@@ -16,6 +16,7 @@ private:
 public:
     void setBitcoinPrice(std::string date, float price);
     std::map<std::string, float> getBitcoinPrice();
+    void readFile(char *name);
     BitcoinExchange();
     ~BitcoinExchange();
 };

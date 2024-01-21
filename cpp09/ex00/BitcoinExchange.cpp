@@ -2,7 +2,6 @@
 
 bool validDate(std::string date) {
     int year, month, day;
-
     if (date.length() != 10)
         return (false);
     if (date[4] != '-' || date[7] != '-') {
@@ -16,7 +15,6 @@ bool validDate(std::string date) {
             return false;
         }
     }
-
 
     std::stringstream ss(date);
     ss >> year;
@@ -34,6 +32,49 @@ bool validDate(std::string date) {
     return true;
 }
 
+
+void BitcoinExchange::readFile(char *name) {
+    std::ifstream file(name);
+    if (!file.is_open()) {
+        std::cerr << "Error: Could not open '" << name << "' file." << std::endl;
+        return;
+    }
+    std::string line;
+    std::getline(file,line);
+    while (std::getline(file, line)) {
+        std::istringstream ss(line);
+        std::string date;
+        float valor;
+
+        if (std::getline(ss >> std::ws, date, ' ')) {
+            if (validDate(date)) {    
+                if (ss.get() != '|') {
+                    std::cout << "Error: bad input on date => " << date << std::endl;
+                }
+                else if (ss.get() != ' ') {
+                    std::cout << "Error: bad input on date => " << date << std::endl;
+                }
+                else {
+                    ss >> valor;
+                    if (!ss.fail()) {
+                        if (valor <= 0 || valor >= 1000) {
+                            std::cout << "Error: invalid price value on date => " << date << std::endl;
+                        }
+                        else {
+                            std::cout << "Haríamos comprobación" << std::endl;
+                        }
+                    }
+                    else {
+                        std::cout << "Error: bad float on date => " << date << std::endl;
+                    }
+                }
+            }
+            else 
+                std::cout << "Error: bad file input => " << date << std::endl;
+        }
+    }
+    file.close();
+}
 
 BitcoinExchange::BitcoinExchange() {
     std::ifstream file("data.csv");
@@ -77,5 +118,3 @@ void BitcoinExchange::setBitcoinPrice(std::string date, float price) {
 std::map<std::string, float> BitcoinExchange::getBitcoinPrice() {
     return (_bitcoinPrice);
 }
-
-
