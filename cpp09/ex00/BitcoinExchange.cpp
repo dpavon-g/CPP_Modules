@@ -1,7 +1,21 @@
 #include "BitcoinExchange.hpp"
 
-bool validDate(std::string date) {
+int convertDateToDays(const std::string &date){
     int year, month, day;
+    std::istringstream stream(date);
+    char dash;
+    int days;
+
+    stream >> year >> dash >> month >> dash >> day;
+
+    days = year * 365 + month * 30 + day;
+    return days;
+}
+
+bool validDate(std::string date) {
+    std::stringstream ss(date);
+    int year, month, day;
+    
     if (date.length() != 10)
         return (false);
     if (date[4] != '-' || date[7] != '-') {
@@ -15,23 +29,51 @@ bool validDate(std::string date) {
             return false;
         }
     }
-
-    std::stringstream ss(date);
     ss >> year;
     ss.get();
     ss >> month;
     ss.get();
     ss >> day;
-
     if (month < 1 || month > 12)
         return false;
-        
     if (day < 1 || day > 31)
         return false;
 
     return true;
 }
 
+void calculatePrice(std::string date, float value, std::map<std::string, float> Prices) {
+    std::cout << date << " => " << value << " = ";
+    int dateDays = convertDateToDays(date);
+    int mapDays = 0;
+    int diff;
+    int lastDiff = 1;
+    std::string nearestDate;
+    std::map<std::string, float>::iterator iter = Prices.begin();
+    while (iter != Prices.end()) {
+        mapDays = convertDateToDays(iter->first);
+        diff = mapDays - dateDays;
+        if (diff == 0) {
+            std::cout << iter->second * value << std::endl;
+            return;
+        }
+        else if (diff < 0) {
+            if (lastDiff == 1) {
+                nearestDate = iter->first;
+                lastDiff = diff;
+            }
+            else if (lastDiff < diff) {
+                nearestDate = iter->first;
+                lastDiff = diff;
+            }
+        }
+        ++iter;
+    }
+    std::cout << Prices[nearestDate] * value << std::endl;
+    (void)date;
+    (void)value;
+    (void)Prices;
+}
 
 void BitcoinExchange::readFile(char *name) {
     std::ifstream file(name);
@@ -44,7 +86,7 @@ void BitcoinExchange::readFile(char *name) {
     while (std::getline(file, line)) {
         std::istringstream ss(line);
         std::string date;
-        float valor;
+        float value;
 
         if (std::getline(ss >> std::ws, date, ' ')) {
             if (validDate(date)) {    
@@ -55,13 +97,16 @@ void BitcoinExchange::readFile(char *name) {
                     std::cout << "Error: bad input on date => " << date << std::endl;
                 }
                 else {
-                    ss >> valor;
+                    ss >> value;
                     if (!ss.fail()) {
-                        if (valor <= 0 || valor >= 1000) {
-                            std::cout << "Error: invalid price value on date => " << date << std::endl;
+                        if (value <= 0) {
+                            std::cout << "Error: not a positive number." << std::endl;
+                        }
+                        else if (value >= 1000) {
+                            std::cout << "Error: too large number." << std::endl;
                         }
                         else {
-                            std::cout << "Haríamos comprobación" << std::endl;
+                            calculatePrice(date, value, this->getBitcoinPrice());
                         }
                     }
                     else {
@@ -70,7 +115,7 @@ void BitcoinExchange::readFile(char *name) {
                 }
             }
             else 
-                std::cout << "Error: bad file input => " << date << std::endl;
+                std::cout << "Error: bad input => " << date << std::endl;
         }
     }
     file.close();
@@ -87,12 +132,12 @@ BitcoinExchange::BitcoinExchange() {
     while (std::getline(file, line)) {
         std::istringstream ss(line);
         std::string date;
-        float valor;
+        float value;
         if (std::getline(ss, date, ',')) {
             if (validDate(date)) {
-                ss >> valor;
+                ss >> value;
                 if (!ss.fail()) {
-                    this->setBitcoinPrice(date, valor);
+                    this->setBitcoinPrice(date, value);
                 }
                 else {
                     std::cout << "Error: bad float on date => " << date << std::endl;
@@ -103,13 +148,10 @@ BitcoinExchange::BitcoinExchange() {
             }
         }
     }
-    std::cout << "Database added :)" << std::endl;
     file.close();
 }
 
-BitcoinExchange::~BitcoinExchange() {
-    std::cout << "Default destructor created" << std::endl;
-}
+BitcoinExchange::~BitcoinExchange() {}
 
 void BitcoinExchange::setBitcoinPrice(std::string date, float price) {
     _bitcoinPrice[date] = price;
