@@ -2,13 +2,20 @@
 # define RPN_HPP
 
 # include <iostream>
+# include <sstream>
+# include <stack>
+# include <cctype>
+# include <cstdlib>
 
 class RPN
 {
 private:
-    /* data */
+    std::stack<int> stack;
 public:
-    RPN(/* args */);
+    RPN();
     ~RPN();
+    RPN(const RPN &copy);
+    RPN& operator=(const RPN& other);
+    int calculate(const std::string &expresion);
 };
 #endif

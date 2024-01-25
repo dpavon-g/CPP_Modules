@@ -121,6 +121,17 @@ void BitcoinExchange::readFile(char *name) {
     file.close();
 }
 
+BitcoinExchange::BitcoinExchange(const BitcoinExchange &copy) {
+    this->_bitcoinPrice = copy._bitcoinPrice;
+}
+
+BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange& copy) {
+    if (this != &copy) {
+        this->_bitcoinPrice = copy._bitcoinPrice;
+    }
+    return (*this);
+}
+
 BitcoinExchange::BitcoinExchange() {
     std::ifstream file("data.csv");
     if (!file.is_open()) {

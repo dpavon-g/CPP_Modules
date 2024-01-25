@@ -19,6 +19,8 @@ public:
     void readFile(char *name);
     BitcoinExchange();
     ~BitcoinExchange();
+    BitcoinExchange(const BitcoinExchange &copy);
+    BitcoinExchange& operator=(const BitcoinExchange& other);
 };
 
 #endif
