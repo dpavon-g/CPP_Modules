@@ -1,7 +1,5 @@
 #include "PmergeMe.hpp"
 
-#include <sstream>
-
 bool validString(const char* str) {
     std::istringstream ss(str);
     char numero[256];
@@ -9,6 +7,7 @@ bool validString(const char* str) {
     while (ss >> numero) {
         for (int i = 0; numero[i] != '\0'; ++i) {
             if (!isdigit(numero[i])) {
+                std::cout << "Not string: " << numero[i] << std::endl;
                 return false;
             }
         }
@@ -28,7 +27,9 @@ int main(int argc, char **argv) {
     }
     else {
         if (validString(argv[1]) == true) {
-            std::cout << "Before: " << argv[1] << std::endl;
+            std::cout << "Before:   " << argv[1] << std::endl;
+            PmergeMe merger(argv[1]);
+            merger.sortVector();
             return (0);
         }
         else {

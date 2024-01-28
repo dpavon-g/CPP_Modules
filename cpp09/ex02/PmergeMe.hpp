@@ -1,14 +1,25 @@
 #ifndef PMERGEME_HPP
 # define PMERGEME_HPP
 
-#include <iostream>
+# include <iostream>
+# include <vector>
+# include <sstream>
+# include <cstdlib>
+# include <iomanip>
+# include <sys/time.h>
+# include <list>
 
 class PmergeMe
 {
-private:
-public:
-    PmergeMe();
-    ~PmergeMe();
+    private:
+        std::vector<size_t> my_vector;
+        std::list<size_t>   my_list;
+    public:
+        void sortVector();
+        void sortList();
+        void showVector();
+        PmergeMe(std::string _numbers);
+        ~PmergeMe();
 };
 
 #endif
