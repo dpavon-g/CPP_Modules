@@ -11,8 +11,8 @@
 
 Following the common core of 42, these exercises are divided into two blocks of different modules, from 00 to 04 and from 05 to 09.
 
-| Module | Block | Topics | Documentation | PDF | Completed |
-|:------:|:----:| ---- |:---------:|------|:-:|
+| Module | Block | Topics | Documentation | Completed |
+|:------:|:----:| ---- |:---------:|:-:|
 | CPP00 | <img src="https://i.pinimg.com/originals/6a/e7/82/6ae782e87430b85f82ab965cc479c1a4.png" height="45px"> | Namespaces, classes, member functions, stdio streams, initialization lists, static, const, and some other basic stuff. | [Module Wiki](https://github.com/dpavon-g/CPP_Modules/wiki/CPP_Module00) | :white_check_mark: |
 | CPP01 | <img src="https://i.pinimg.com/originals/6a/e7/82/6ae782e87430b85f82ab965cc479c1a4.png" height="45px"> | Memory allocation, pointers to members, references, switch statement. | [Module Wiki](https://github.com/dpavon-g/CPP_Modules/wiki/CPP_Module01) | :white_check_mark: |
 | CPP02 | <img src="https://i.pinimg.com/originals/6a/e7/82/6ae782e87430b85f82ab965cc479c1a4.png" height="45px"> | Ad-hoc polymorphism, operator overloading and Orthodox Canonical class form. | [Module Wiki](https://github.com/dpavon-g/CPP_Modules/wiki/CPP_Module02) | :white_check_mark: |
