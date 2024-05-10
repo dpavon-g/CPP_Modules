@@ -18,7 +18,9 @@ class PmergeMe
         void sortVector();
         void sortList();
         void showVector();
-        PmergeMe(std::string _numbers);
+        PmergeMe(char **argv);
+        PmergeMe(const PmergeMe &copy);
+        PmergeMe& operator=(const PmergeMe& other);
         ~PmergeMe();
 };
 

@@ -69,7 +69,7 @@ int RPN::calculate(const std::string &expresion) {
             this->stack.push(num1 * num2);
         }
         else {
-            if (v.size() != 1) {
+            if (v.size() != 1 && expString.eof()) {
                 std::cout << "Error" << std::endl;
                 return -1;
             }
@@ -86,5 +86,7 @@ int RPN::calculate(const std::string &expresion) {
         return (-1);
     }
     std::cout << this->stack.top() << std::endl;
+    (void)num1;
+    (void)num2;
     return (0);
 }
